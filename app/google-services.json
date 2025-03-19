@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "278017062118",
+    "project_id": "ehr-login-c64a9",
+    "storage_bucket": "ehr-login-c64a9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278017062118:android:09aae08916f63ccc397727",
+        "android_client_info": {
+          "package_name": "com.example.myapplicationasa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrdJdunpfbPxFyRRNMHa3vFDg58G-GMHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
