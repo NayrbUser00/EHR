@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText Username,Password;
+    EditText Email,Password;
     Button button;
     TextView register;
     FirebaseAuth mAuth;
@@ -53,28 +53,28 @@ public class LoginActivity extends AppCompatActivity {
 
          mAuth = FirebaseAuth.getInstance();
 
-        Username = findViewById(R.id.Username);
-        Password = findViewById(R.id.password);
-        button = findViewById(R.id.button);
-        register = findViewById(R.id.register);
+                Email = findViewById(R.id.Email);
+                Password = findViewById(R.id.password);
+                button = findViewById(R.id.button);
+                register = findViewById(R.id.register);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = Username.getText().toString();
-                String password = Password.getText().toString();
-                //object for database
-                //Database db = new Database(getApplicationContext(), "EHR users", null,1);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String email = Email.getText().toString();
+                        String password = Password.getText().toString();
+                        //object for database
+                        //Database db = new Database(getApplicationContext(), "EHR users", null,1);
 
-               if(TextUtils.isEmpty(username)){
-                   Toast.makeText(LoginActivity.this,"Please enter username", Toast.LENGTH_SHORT).show();
-                   return;
-               }
+                        if(TextUtils.isEmpty(email)){
+                            Toast.makeText(LoginActivity.this,"Please enter email", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-               if (TextUtils.isEmpty(password)){
-                   Toast.makeText(LoginActivity.this,"Please enter password", Toast.LENGTH_SHORT).show();
-                   return;
-               }
+                        if (TextUtils.isEmpty(password)){
+                            Toast.makeText(LoginActivity.this,"Please enter password", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                /*if(db.login(username,password)){
                    Toast.makeText(LoginActivity.this,"Login Success", Toast.LENGTH_SHORT).show();
@@ -86,21 +86,22 @@ public class LoginActivity extends AppCompatActivity {
                }*/
 
                //Firebase function login
-                mAuth.signInWithEmailAndPassword(username, password)
+                mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, home.class);
                                     startActivity(intent);
                                     finish();
                                     Toast.makeText(LoginActivity.this, "Login success.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If sign in fails, display a message to the user.
+                                    Toast.makeText(LoginActivity.this, "Incorrect Credentials",
+                                            Toast.LENGTH_SHORT).show();
 
-                                    Log.d("LoginActivity", "Login Failed: " + task.getException().getMessage());
 
                                 }
                             }
