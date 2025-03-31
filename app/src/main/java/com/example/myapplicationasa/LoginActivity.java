@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,13 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
 
 
-    /*@Override
+   /* @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            startActivity(new Intent(LoginActivity.this,home.class));
         }
     } */
 
@@ -63,8 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String email = Email.getText().toString();
                         String password = Password.getText().toString();
-                        //object for database
-                        //Database db = new Database(getApplicationContext(), "EHR users", null,1);
+
 
                         if(TextUtils.isEmpty(email)){
                             Toast.makeText(LoginActivity.this,"Please enter email", Toast.LENGTH_SHORT).show();
@@ -76,14 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             return;
                         }
 
-               /*if(db.login(username,password)){
-                   Toast.makeText(LoginActivity.this,"Login Success", Toast.LENGTH_SHORT).show();
-                   startActivity( new Intent(LoginActivity.this, home.class));
-               }
 
-               else {
-                   Toast.makeText(LoginActivity.this,"Invalid login creds", Toast.LENGTH_SHORT).show();
-               }*/
 
                //Firebase function login
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -114,11 +107,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
              startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
+
+
     }
+
+
 }

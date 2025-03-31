@@ -14,11 +14,14 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/firstname"
         android:layout_width="409dp"
         android:layout_height="729dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="1dp">
+
+
 
         <TextView
             android:id="@+id/textView3"
@@ -44,6 +47,130 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="96dp"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/showfirstname"
+            android:layout_width="307dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="86dp"
+            app:layout_constraintBottom_toTopOf="@+id/showlastname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="325dp"
+            android:layout_marginBottom="25dp"
+            android:text="Last Name"
+            app:layout_constraintBottom_toTopOf="@+id/showlastname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showfirstname" />
+
+        <TextView
+            android:id="@+id/showlastname"
+            android:layout_width="307dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="103dp"
+            android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.263"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="93dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:text="Weight"
+            app:layout_constraintEnd_toStartOf="@+id/textView12"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showlastname" />
+
+        <TextView
+            android:id="@+id/showweight"
+            android:layout_width="121dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="80dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="109dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginBottom="32dp"
+            android:text="height"
+            app:layout_constraintBottom_toTopOf="@+id/showheight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/showlastname" />
+
+        <TextView
+            android:id="@+id/showheight"
+            android:layout_width="121dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="67dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/showweight"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="138dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="253dp"
+            android:text="address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showweight" />
+
+        <TextView
+            android:id="@+id/showaddress"
+            android:layout_width="307dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="86dp"
+            android:layout_marginBottom="207dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
