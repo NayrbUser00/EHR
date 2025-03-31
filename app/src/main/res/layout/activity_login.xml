@@ -37,8 +37,8 @@
 
     <EditText
         android:id="@+id/Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="354dp"
+        android:layout_height="60dp"
         android:drawableLeft="@android:drawable/arrow_down_float"
         android:ems="10"
         android:hint="Email"
@@ -51,8 +51,8 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="354dp"
+        android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Password"
