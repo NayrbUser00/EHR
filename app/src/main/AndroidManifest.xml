@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplicationasa">
+    package="com.example.myapplicationasa"
+    tools:ignore="MissingLeanbackLauncher">
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,11 +29,23 @@
         android:theme="@style/Theme.MyApplicationasa"
         tools:targetApi="31">
         <activity
+            android:name=".Addnotes"
+            android:exported="false" />
+        <activity
+            android:name=".MedicalNotes"
+            android:exported="false" />
+        <activity
+            android:name=".documents"
+            android:exported="false" />
+        <activity
+            android:name=".Forgotpassword"
+            android:exported="false" />
+        <activity
             android:name=".Profileedit"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" /> <!-- LoginActivity is now the launcher activity -->
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -36,9 +63,16 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
-
-
+            android:exported="false" /> <!-- New PDF Viewer Activity -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.myapplicationasa.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 </manifest>

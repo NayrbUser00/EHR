@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding =true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,6 +34,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+
 }
 
 dependencies {
@@ -40,7 +46,11 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation("com.google.firebase:firebase-auth:21.0.1")
     implementation(libs.firebase.auth)
+    implementation(libs.leanback)
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+
 }

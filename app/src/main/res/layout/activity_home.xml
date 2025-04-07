@@ -1,31 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home"
-    android:background="@drawable/homebgd">
+    android:fillViewport="true">
 
-    <ImageButton
-        android:id="@+id/profile"
-        android:layout_width="80dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="261dp"
-        android:layout_marginBottom="564dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile"
-        android:contentDescription="First Activity"
-        android:background="@android:color/white"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="412dp"
+            android:layout_height="214dp"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/blueback" />
 
+        <ImageView
+            android:id="@+id/profileimage"
+            android:layout_width="194dp"
+            android:layout_height="169dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toTopOf="@+id/Welcomebanner"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="#00FFFFFF"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView6"
+            tools:srcCompat="@tools:sample/avatars" />
 
+        <TextView
+            android:id="@+id/Welcomebanner"
+            android:layout_width="348dp"
+            android:layout_height="32dp"
+            android:fontFamily="sans-serif-black"
+            android:text="Welcome"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView6"
+            app:layout_constraintVertical_bias="1.0" />
 
+        <TextView
+            android:id="@+id/agebanner"
+            android:layout_width="143dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="sans-serif-light"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:typeface="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <ImageButton
+            android:id="@+id/editprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.759"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.31"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <TextView
+            android:id="@+id/BMI"
+            android:layout_width="259dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="52dp"
+            android:fontFamily="sans-serif-light"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/agebanner" />
+
+        <ImageButton
+            android:id="@+id/filemanager"
+            android:layout_width="149dp"
+            android:layout_height="119dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/filemanager" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="148dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="32dp"
+            android:text="Your Documents"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filemanager" />
+
+        <ImageButton
+            android:id="@+id/medicalnotes"
+            android:layout_width="149dp"
+            android:layout_height="119dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="60dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@+id/filemanager"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/medicalnotes" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="148dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="43dp"
+            android:text="Medical Notes"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/medicalnotes" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="335dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="108dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/filemanager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/BMI" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

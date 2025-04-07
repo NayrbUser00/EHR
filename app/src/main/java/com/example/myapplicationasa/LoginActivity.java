@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText Email,Password;
     Button button;
-    TextView register;
+    TextView register, forgotpassword;
     FirebaseAuth mAuth;
 
 
@@ -44,79 +44,66 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.activity_login); //
 
-         mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-                Email = findViewById(R.id.Email);
-                Password = findViewById(R.id.password);
-                button = findViewById(R.id.button);
-                register = findViewById(R.id.register);
+        Email = findViewById(R.id.Email);
+        Password = findViewById(R.id.password);
+        button = findViewById(R.id.button);
+        register = findViewById(R.id.register);
+        forgotpassword = findViewById(R.id.forgotpassword); //
 
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String email = Email.getText().toString();
-                        String password = Password.getText().toString();
+        if (forgotpassword == null) { // 🔍 Debugging check
+            Log.e("LoginActivity", "forgotpassword TextView is null. Check XML ID.");
+        }
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = Email.getText().toString().trim();
+                String password = Password.getText().toString().trim();
 
-                        if(TextUtils.isEmpty(email)){
-                            Toast.makeText(LoginActivity.this,"Please enter email", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(LoginActivity.this, "Please enter email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                        if (TextUtils.isEmpty(password)){
-                            Toast.makeText(LoginActivity.this,"Please enter password", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-
-
-               //Firebase function login
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     Intent intent = new Intent(LoginActivity.this, home.class);
                                     startActivity(intent);
                                     finish();
-                                    Toast.makeText(LoginActivity.this, "Login success.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Login success.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Incorrect Credentials",
-                                            Toast.LENGTH_SHORT).show();
-
-
+                                    Toast.makeText(LoginActivity.this, "Incorrect Credentials", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
             }
         });
-
-
-
-
-
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 
-
-
+        forgotpassword.setOnClickListener(new View.OnClickListener() { // ✅ Moved inside onCreate()
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, Forgotpassword.class));
+            }
+        });
     }
 
 
