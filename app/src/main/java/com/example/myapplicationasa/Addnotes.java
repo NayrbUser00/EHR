@@ -2,6 +2,7 @@ package com.example.myapplicationasa;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,14 +20,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class Addnotes extends AppCompatActivity {
     Button button;
     EditText PatientID, physcian,testdone,testdate,testresult,Recommendation;
     Spinner spinner1;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,25 +65,69 @@ public class Addnotes extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 String email = getEmail(currentUser);
+                String patientIdStr = PatientID.getText().toString();
+                String physician = physcian.getText().toString();
+                String testDone = testdone.getText().toString();
+                String testResult = testresult.getText().toString();
+                String recommendation = Recommendation.getText().toString();
+                String admissionType = spinner1.getSelectedItem().toString();
+                String testDateStr = testdate.getText().toString();
+                Integer testDate = null;  // Default value is null
+
+                // Convert test date if provided
+                if (!testDateStr.isEmpty()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+                    try {
+                        Date date = sdf.parse(testDateStr);
+                        if (date != null) {
+                            testDate = (int) (date.getTime() / 1000);  // Timestamp in seconds
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Allow patient ID to be blank; parse only if not empty
+                Integer patientID = null;
+                if (!patientIdStr.isEmpty()) {
+                    try {
+                        patientID = Integer.parseInt(patientIdStr);
+                        if (patientID < 0) {
+                            Toast.makeText(Addnotes.this, "Patient ID cannot be negative", Toast.LENGTH_SHORT).show();
+                            patientID = null;
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(Addnotes.this, "Invalid Patient ID", Toast.LENGTH_SHORT).show();
+                        patientID = null;
+                    }
+                }
+
+                // Save the data even if patientID is null
+                boolean isSaved = saveData(patientID, physician, admissionType, testDone, testDate, testResult, recommendation, email);
+                if (isSaved) {
+                    Toast.makeText(Addnotes.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Addnotes.this, "Failed to save data", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
     }
-    private boolean saveData(int patientID, String physician, String admissionType, String testDone,
-                             int testDate, String testResult, String recommendation, String email) {
-        // Check if physician or any required field is null (you can customize validation as needed)
-        if (physician != null && admissionType != null  ) {
+    private boolean saveData(Integer patientID, String physician, String admissionType, String testDone,
+                             Integer testDate, String testResult, String recommendation, String email) {
+
+        if (physician != null && admissionType != null) {
             // Create an instance of your database helper
             diagnosis db = new diagnosis(Addnotes.this);
 
-
             // Call the method to add the record to the database
-            return db.addmedicnotes(patientID, physician, admissionType, testDone, testDate, testResult, recommendation,email);
+            return db.addmedicnotes(patientID, physician, admissionType, testDone, testDate, testResult, recommendation, email);
         } else {
-            // Show a toast message if some required field is missing
-            Toast.makeText(Addnotes.this, "Unable to save data: Missing fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Addnotes.this, "Unable to save data: Missing required fields", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
+
 
     private String getEmail(FirebaseUser currentUser) {
         if (currentUser != null) {

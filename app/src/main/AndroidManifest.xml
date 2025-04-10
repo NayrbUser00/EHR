@@ -29,6 +29,9 @@
         android:theme="@style/Theme.MyApplicationasa"
         tools:targetApi="31">
         <activity
+            android:name=".Showmedicnotes"
+            android:exported="false" />
+        <activity
             android:name=".Addnotes"
             android:exported="false" />
         <activity

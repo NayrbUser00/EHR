@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class diagnosis extends SQLiteOpenHelper {
@@ -40,7 +42,7 @@ public class diagnosis extends SQLiteOpenHelper {
                 Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Column_Patientid + " INTEGER, " +
                 Column_Physician + " TEXT, " +
-                Column_AdmissionType + " TEXT CHECK,( " + Column_AdmissionType + " IN ('Medical Checkup', 'Emergency Admission', 'Elective Admission')), " +
+                Column_AdmissionType + " TEXT CHECK( " + Column_AdmissionType + " IN ('Medical Checkup', 'Emergency Admission', 'Elective Admission')), " +
                 Column_InitialTest + " TEXT, " +
                 Column_TestDone + " TEXT, " +
                 Column_TestDate + " INTEGER, " +
@@ -48,7 +50,7 @@ public class diagnosis extends SQLiteOpenHelper {
                 Column_Recommendation + " TEXT, " +
                 Column_demail + " TEXT);";
 
-
+        db.execSQL(query);
     }
 
     @Override
@@ -57,57 +59,66 @@ public class diagnosis extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    boolean addmedicnotes(Integer Patientid, String Physcian, String AdmisionType, String TestDone, Integer TestDate, String TestResult, String Recommendation, String email){
+    public boolean addmedicnotes(Integer patientID, String physician, String admissionType,
+                                 String testDone, Integer testDate, String testResult,
+                                 String recommendation, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(Column_Patientid, Patientid);
-        cv.put(Column_Physician, Physcian);
-        cv.put(Column_AdmissionType, AdmisionType);
-        cv.put(Column_TestDone, TestDone);
-        cv.put(Column_TestDate, TestDate);
-        cv.put(Column_TestResult, TestResult);
-        cv.put(Column_Recommendation, Recommendation);
+
+        if (patientID != null) {
+            cv.put(Column_Patientid, patientID);
+        } else {
+            cv.putNull(Column_Patientid);
+        }
+
+        cv.put(Column_Physician, physician);
+        cv.put(Column_AdmissionType, admissionType);
+        cv.put(Column_TestDone, testDone);
+        cv.put(Column_TestDate, testDate); // You might add a similar check here if needed
+        cv.put(Column_TestResult, testResult);
+        cv.put(Column_Recommendation, recommendation);
         cv.put(Column_demail, email);
 
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1) {
-            if (context != null) {
-                Toast.makeText(context, "Failed to add user", Toast.LENGTH_SHORT).show();
-            } else {
-                System.err.println("Context is null");
-            }
+            Toast.makeText(context, "Failed to add user", Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            if (context != null) {
-                Toast.makeText(context, "User saved successfully", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(context, "User saved successfully", Toast.LENGTH_SHORT).show();
             return true;
         }
     }
 
-    public  Medical_notes getmedicalnotes(String email){
+
+    public List<Medical_notes> getmedicalnotes(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + Column_demail + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{email});
 
-        Medical_notes medicalNotes= null;
-        if (cursor != null && cursor.moveToFirst()){
-            int Patienid = cursor.getInt(cursor.getColumnIndexOrThrow(Column_Patientid));
-            String Physcian = cursor.getString(cursor.getColumnIndexOrThrow(Column_Physician));
-            String AdmissionType = cursor.getString(cursor.getColumnIndexOrThrow(Column_AdmissionType));
-            String TestDone = cursor.getString(cursor.getColumnIndexOrThrow(Column_TestDone));
-            int TestDate = cursor.getInt(cursor.getColumnIndexOrThrow(Column_TestDate));
-            String TestResult = cursor.getString(cursor.getColumnIndexOrThrow(Column_TestResult));
-            String Recommendation = cursor.getString(cursor.getColumnIndexOrThrow(Column_Recommendation));
-            medicalNotes = new Medical_notes(Patienid,Physcian,AdmissionType,TestDone,TestDate,TestResult,email,Recommendation);
-        }
+        List<Medical_notes> medicalNotesList = new ArrayList<>();
+
         if (cursor != null) {
+            while (cursor.moveToNext()) {  // Loop through all rows
+                int patientId = cursor.getInt(cursor.getColumnIndexOrThrow(Column_Patientid));
+                String physician = cursor.getString(cursor.getColumnIndexOrThrow(Column_Physician));
+                String admissionType = cursor.getString(cursor.getColumnIndexOrThrow(Column_AdmissionType));
+                String testDone = cursor.getString(cursor.getColumnIndexOrThrow(Column_TestDone));
+                int testDate = cursor.getInt(cursor.getColumnIndexOrThrow(Column_TestDate));
+                String testResult = cursor.getString(cursor.getColumnIndexOrThrow(Column_TestResult));
+                String recommendation = cursor.getString(cursor.getColumnIndexOrThrow(Column_Recommendation));
+
+                // Create a new Medical_notes object and add it to the list
+                Medical_notes medicalNotes = new Medical_notes(
+                        patientId, physician, admissionType, testDone, testDate, testResult, email, recommendation
+                );
+                medicalNotesList.add(medicalNotes);
+            }
             cursor.close();
-
-
         }
-        return medicalNotes;
+
+        return medicalNotesList;  // Return the list of medical notes
     }
+
 
 
 }

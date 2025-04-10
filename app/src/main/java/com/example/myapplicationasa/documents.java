@@ -247,10 +247,6 @@ public class documents extends AppCompatActivity {
     }
 
 
-    public void onPdfClick(File pdfFile) {
-        openPdf(pdfFile);
-    }
-
 
     public void openPdf(File pdfFile) {
         try {
